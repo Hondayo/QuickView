@@ -8,7 +8,7 @@ const { height, width } = Dimensions.get('window');
 // 動画アイテムの型
 type VideoItem = {
   id: string;
-  uri: string;
+  video_id: number;
   title: string;
   description: string;
 };
@@ -20,30 +20,40 @@ type Content = {
   videos: VideoItem[];
 };
 
+// ファイルマッピング
+const videoAssets = [
+  { id: 1, video: require('../assets/videos/1.mp4')},
+  { id: 2, video: require('../assets/videos/2.mp4')},
+  { id: 3, video: require('../assets/videos/3.mp4')},
+  { id: 4, video: require('../assets/videos/4.mp4')},
+  { id: 5, video: require('../assets/videos/1.mp4')},
+  { id: 6, video: require('../assets/videos/2.mp4')},
+];
+
 // コンテンツ定義
 const contents: Content[] = [
   {
     id: '1',
-    name: 'コンテンツ1',
+    name: '斉木楠雄のΨ難',
     videos: [
-      { id: '1-1', uri: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'コンテンツ1 - ビデオ1', description: 'コンテンツ1のビデオ1の説明' },
-      { id: '1-2', uri: 'https://www.w3schools.com/html/movie.mp4',   title: 'コンテンツ1 - ビデオ2', description: 'コンテンツ1のビデオ2の説明' },
+      { id: '1-1', video_id: 1, title: '燃堂おもろすぎ', description: 'コンテンツ1のビデオ1の説明' },
+      { id: '1-2', video_id: 2,   title: 'コンテンツ1 - ビデオ2', description: 'コンテンツ1のビデオ2の説明' },
     ],
   },
   {
     id: '2',
-    name: 'コンテンツ2',
+    name: 'ブルーロック',
     videos: [
-      { id: '2-1', uri: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'コンテンツ2 - ビデオ1', description: 'コンテンツ2のビデオ1の説明' },
-      { id: '2-2', uri: 'https://www.w3schools.com/html/movie.mp4',   title: 'コンテンツ2 - ビデオ2', description: 'コンテンツ2のビデオ2の説明' },
+      { id: '2-1', video_id: 3, title: 'コンテンツ2 - ビデオ1', description: 'コンテンツ2のビデオ1の説明' },
+      { id: '2-2', video_id: 4, title: 'コンテンツ2 - ビデオ2', description: 'コンテンツ2のビデオ2の説明' },
     ],
   },
   {
     id: '3',
-    name: 'コンテンツ3',
+    name: 'ワンピース',
     videos: [
-      { id: '3-1', uri: 's/html/mov_bbb.mp4', title: 'コンテンツ3 - ビデオ1', description: 'コンテンツ3のビデオ1の説明' },
-      { id: '3-2', uri: 'https://www.w3schools.com/html/movie.mp4',   title: 'コンテンツ3 - ビデオ2', description: 'コンテンツ3のビデオ2の説明' },
+      { id: '3-1', video_id: 5, title: 'コンテンツ3 - ビデオ1', description: 'コンテンツ3のビデオ1の説明' },
+      { id: '3-2', video_id: 6, title: 'コンテンツ3 - ビデオ2', description: 'コンテンツ3のビデオ2の説明' },
     ],
   },
 ];
@@ -88,7 +98,7 @@ export default function HomeScreen(): JSX.Element {
               ref={(ref) => {
                 videoRefs.current[index] = ref;
               }}
-              source={{ uri: item.uri }}
+              source={videoAssets.find((asset) => asset.id === item.video_id)?.video}
               style={styles.video}
               resizeMode={ResizeMode.CONTAIN}
               shouldPlay={currentIndex === index}
