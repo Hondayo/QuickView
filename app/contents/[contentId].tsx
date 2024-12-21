@@ -46,7 +46,6 @@ export default function ContentScreen() {
   return (
     <View style={styles.container}>
       {/* 画像表示 */}
-      {/* content.image は上記の "https://example.com/～～.jpg" などのURLを想定 */}
       <Image 
         source={content.image} 
         style={styles.image}
