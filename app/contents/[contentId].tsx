@@ -9,21 +9,21 @@ export default function ContentScreen() {
   const contents = [
     {
       id: 1,
-      image: "../assets/",
+      image: require('../../assets/images/contents/contents1.png'),
       title: "斉木楠雄のΨ難",
       productionYear: 2018,
       ageRestriction: 13,
     },
     {
       id: 2,
-      image: "https://example.com/spiderman.jpg",
+      image: require('../../assets/images/contents/contents2.png'),
       title: "アメイジング・スパイダーマン",
       productionYear: 2014,
       ageRestriction: 13,
     },
     {
       id: 3,
-      image: "https://example.com/roppongi.jpg",
+      image: require('../../assets/images/contents/contents3.png'),
       title: "六本木クラス",
       productionYear: 2022,
       ageRestriction: 13,
@@ -32,6 +32,8 @@ export default function ContentScreen() {
 
   // URLパラメータの contentId に対応するコンテンツを取得
   const content = contents.find((c) => c.id === Number(contentId));
+
+  console.log(content)
 
   if (!content) {
     return (
@@ -46,7 +48,7 @@ export default function ContentScreen() {
       {/* 画像表示 */}
       {/* content.image は上記の "https://example.com/～～.jpg" などのURLを想定 */}
       <Image 
-        source={{ uri: content.image }} 
+        source={content.image} 
         style={styles.image}
       />
       {/* タイトルなどのテキスト表示 */}
